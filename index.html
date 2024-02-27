@@ -81,9 +81,9 @@
         .then(() => {
             if (!liff.isLoggedIn()) {
                 liff.login();
-            }else {
-                enableFormSubmission();
             }
+
+            enableFormSubmission();
         }).catch(err => {
             console.error('LIFF Initialization failed', err);
         });
@@ -97,7 +97,7 @@
                     const uid = profile.userId;
                     const body = JSON.stringify({ name: name, uid: uid });
 
-                    fetch('https://script.google.com/macros/s/AKfycbxXACDf5WDGZ9iLwLVYSyt8pLgbjH4IDsd9DQXT0ElFv6KY9nPxHwSRGE8X6dB6Z59n1g/exec', {
+                    fetch('https://script.google.com/macros/s/AKfycbwxJ_f3OPfsuDHqPtJ5YRBx79ddJLAb9BSSM9eMlz8F5ORSzqOktjS2HAvaytC_hSOBWA/exec', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
