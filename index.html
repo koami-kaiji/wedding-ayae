@@ -97,7 +97,7 @@
                     const uid = profile.userId;
                     const body = JSON.stringify({ name: name, uid: uid });
 
-                    fetch('https://script.google.com/macros/s/.../exec', {
+                    fetch('https://us-central1-black-terminus-415608.cloudfunctions.net/name_register_liff', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
