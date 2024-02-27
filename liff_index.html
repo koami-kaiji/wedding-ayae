@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #282c34;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background: linear-gradient(145deg, #6a3093, #a044ff);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<body>
+    <div class="form-container">
+        <h2>氏名を入力してください</h2>
+        <form id="nameForm">
+            <div class="input-group">
+                <input type="text" placeholder="氏名" name="name" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        const myLiffId = '2003671497-axVdMwVM';
+
+        liff.init({ liffId: myLiffId })
+        .then(() => {
+            if (!liff.isLoggedIn()) {
+                liff.login();
+            }else {
+                enableFormSubmission();
+            }
+        }).catch(err => {
+            console.error('LIFF Initialization failed', err);
+        });
+
+        function enableFormSubmission() {
+            document.getElementById('nameForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const name = event.target.name.value;
+
+                liff.getProfile().then(profile => {
+                    const uid = profile.userId;
+                    const body = JSON.stringify({ name: name, uid: uid });
+
+                    fetch('https://script.google.com/macros/s/AKfycbxXACDf5WDGZ9iLwLVYSyt8pLgbjH4IDsd9DQXT0ElFv6KY9nPxHwSRGE8X6dB6Z59n1g/exec', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: body
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                        liff.closeWindow();
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+                }).catch(err => {
+                    console.error('Profile fetch error:', err);
+                });
+            });
+        }
+    </script>
+
+</body>
+
+</html>
