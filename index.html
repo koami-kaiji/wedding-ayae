@@ -89,35 +89,45 @@
         });
         
         function enableFormSubmission() {
-            document.getElementById('nameForm').addEventListener('submit', function(event) {
+            const form = document.getElementById('nameForm');
+            const submitButton = form.querySelector('button[type="submit"]');
+        
+            form.addEventListener('submit', function(event) {
                 event.preventDefault();
                 const name = event.target.name.value;
         
+                // ローディング状態を表示
+                submitButton.disabled = true; // ボタンを無効化
+                submitButton.innerText = '送信中...'; // ボタンのテキストを変更
+        
                 liff.getProfile().then(profile => {
                     const uid = profile.userId;
-                    // URLにクエリパラメータを追加
-                    const url = `https://script.google.com/macros/s/AKfycbwKE0dFjm_QIiuA4fY4eOfG1Kx4LgGFv9ivUTMklEwgH_uvp7-cgbKg5rfUQb8WlIr3RA/exec?name=${encodeURIComponent(name)}&uid=${encodeURIComponent(uid)}`;
+                    const url = `https://script.google.com/macros/s/AKfycbw1jJDwPqOk5VD2_WXq6Pa1XPRwS0R636_C3ngYqTAelV4yr_ghQhXtzDp2YxyVVZus2A/exec?name=${encodeURIComponent(name)}&uid=${encodeURIComponent(uid)}`;
         
-                    fetch(url) // GETリクエスト
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log('Success:', data);
-                        liff.closeWindow();
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                    });
+                    fetch(url)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Success:', data);
+                            liff.closeWindow();
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        })
+                        .finally(() => {
+                            // レスポンス後、元の状態に戻す
+                            submitButton.disabled = false; // ボタンの無効化を解除
+                            submitButton.innerText = 'Submit'; // ボタンのテキストを元に戻す
+                        });
                 }).catch(err => {
                     console.error('Profile fetch error:', err);
                 });
             });
         }
-
     </script>
 
 </body>
