@@ -87,23 +87,18 @@
         }).catch(err => {
             console.error('LIFF Initialization failed', err);
         });
-
+        
         function enableFormSubmission() {
             document.getElementById('nameForm').addEventListener('submit', function(event) {
                 event.preventDefault();
                 const name = event.target.name.value;
-
+        
                 liff.getProfile().then(profile => {
                     const uid = profile.userId;
-                    const body = JSON.stringify({ name: name, uid: uid });
-
-                    fetch('https://us-central1-black-terminus-415608.cloudfunctions.net/name_register_liff', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: body
-                    })
+                    // URLにクエリパラメータを追加
+                    const url = `https://script.google.com/macros/s/AKfycbwKE0dFjm_QIiuA4fY4eOfG1Kx4LgGFv9ivUTMklEwgH_uvp7-cgbKg5rfUQb8WlIr3RA/exec?name=${encodeURIComponent(name)}&uid=${encodeURIComponent(uid)}`;
+        
+                    fetch(url) // GETリクエスト
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
@@ -122,6 +117,7 @@
                 });
             });
         }
+
     </script>
 
 </body>
