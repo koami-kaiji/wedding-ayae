@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #282c34;
-            color: #ffffff;
+            font-family: 'Times New Roman', serif; /* Elegant font */
+            background-color: #FAF3E0; /* Soft beige background */
+            color: #8B5A2B; /* Soft brown color for text */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,16 +16,19 @@
         }
 
         .form-container {
-            background: linear-gradient(145deg, #6a3093, #a044ff);
+            background: #ffffff; /* White background for form */
             padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px; /* Softer border radius */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Softer shadow */
+            max-width: 400px; /* Maximum width for the form */
+            width: 100%;
         }
 
         h2 {
             text-align: center;
-            color: #fff;
+            color: #8B5A2B; /* Soft brown color for header */
             margin-bottom: 30px;
+            font-size: 24px; /* Larger font size for the header */
         }
 
         .input-group {
@@ -33,32 +36,32 @@
         }
 
         input[type="text"] {
-            width: 95%;
-            padding: 15px 0 15px 5%;
+            width: calc(100% - 10px); /* Adjust width calculation */
+            padding: 10px; /* Adjust padding for input */
             margin: 5px 0 22px 0;
             display: inline-block;
-            border: none;
-            background: #f1f1f1;
+            border: 2px solid #D2B48C; /* Soft brown border */
+            background: #FFF8DC; /* Light cream background for input */
             border-radius: 5px;
             font-size: 16px;
+            color: #8B5A2B; /* Soft brown color for input text */
         }
 
         button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
+            background-color: #D2B48C; /* Soft brown background for button */
+            color: #FFFFFF; /* White text for button */
+            padding: 10px 20px;
             margin: 8px 0;
             border: none;
             cursor: pointer;
             width: 100%;
-            opacity: 0.9;
             border-radius: 5px;
             font-size: 18px;
-            transition: transform 0.2s;
+            transition: background-color 0.3s, transform 0.2s;
         }
 
         button:hover {
-            opacity: 1;
+            background-color: #A0522D; /* Darker brown for button hover */
             transform: scale(1.05);
         }
     </style>
@@ -71,7 +74,7 @@
             <div class="input-group">
                 <input type="text" placeholder="氏名" name="name" required>
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit">送信</button>
         </form>
     </div>
     <script>
